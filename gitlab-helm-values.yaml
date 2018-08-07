@@ -1,0 +1,27 @@
+global:
+  hosts:
+    https: false
+    domain: infoplus
+    externalIP: 0.0.0.0 
+
+certmanager-issuer:
+  email: i@marstone.net
+
+minio:
+  replicas: 1
+
+registry:
+  replicas: 1
+
+gitlab:
+  gitlab-shell:
+    replicaCount: 1
+  unicorn:
+    replicaCount: 1
+    resources:
+      requests:
+        memory: 1G
+
+gitlab-runner:
+  enabled: false
+  

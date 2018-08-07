@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gitlab-ce
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: gitlab-ce
+    spec:
+      containers:
+      - name: gitlab-ce
+        image: gitlab/gitlab-ce:11.1.4-ce.0
+        ports:
+        - containerPort: 22
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+          - name: gitlab-conf
+            mountPath: /etc/gitlab
+          - name: gitlab-data
+            mountPath: /var/opt/gitlab
+          - name: gitlab-logs
+            mountPath: /var/log/gitlab
+      volumes:
+        - name: gitlab-conf
+          hostPath: 
+            path: /Volumes/CODE/k8s/gitlab-ce/conf
+        - name: gitlab-data
+          hostPath: 
+            path: /Volumes/CODE/k8s/gitlab-ce/data
+        - name: gitlab-logs
+          hostPath: 
+            path: /Volumes/CODE/k8s/gitlab-ce/logs
+

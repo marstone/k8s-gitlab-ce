@@ -1,0 +1,2352 @@
+certmanager:
+  createCustomResource: true
+  extraArgs: []
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 0.0.0.0
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image:
+    pullPolicy: IfNotPresent
+    repository: quay.io/jetstack/cert-manager-controller
+    tag: v0.2.3
+  ingressShim:
+    enabled: true
+    extraArgs: []
+    image:
+      pullPolicy: IfNotPresent
+      repository: quay.io/jetstack/cert-manager-ingress-shim
+    resources: {}
+  install: true
+  nodeSelector: {}
+  rbac:
+    create: true
+  replicaCount: 1
+  resources: {}
+  serviceAccount:
+    create: true
+    name: null
+certmanager-issuer:
+  email: i@marstone.net
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image:
+    pullPolicy: Always
+    pullSecrets: []
+    repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+    tag: 1f8690f03f7aeef27e727396927ab3cc96ac89e7
+  rbac:
+    create: true
+  resources: {}
+  server: https://acme-v01.api.letsencrypt.org/directory
+gitlab:
+  gitaly:
+    enabled: true
+    global:
+      antiAffinity: soft
+      application:
+        create: true
+      email:
+        display_name: GitLab
+        from: ""
+        reply_to: ""
+        subject_suffix: ""
+      gitaly:
+        authToken: {}
+      hosts:
+        domain: infoplus
+        externalIP: 127.0.0.1
+        gitlab: {}
+        hostSuffix: null
+        https: false
+        minio: {}
+        registry: {}
+        tls: {}
+      ingress:
+        annotations: {}
+        configureCertmanager: true
+        enabled: true
+        tls: {}
+      initialRootPassword: {}
+      minio:
+        credentials: {}
+        enabled: true
+      psql:
+        password: {}
+      railsSecrets: {}
+      redis:
+        password: {}
+      registry:
+        certificate: {}
+      runner:
+        registrationToken: {}
+      service:
+        annotations: {}
+      shell:
+        authToken: {}
+        hostKeys: {}
+      smtp:
+        address: smtp.mailgun.org
+        authentication: plain
+        enabled: false
+        openssl_verify_mode: peer
+        password:
+          key: password
+          secret: ""
+        port: 2525
+        starttls_auto: false
+        user_name: ""
+      time_zone: UTC
+    image:
+      pullSecrets: []
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitaly
+    init:
+      image: busybox
+      resources:
+        requests:
+          cpu: 50m
+      tag: latest
+    maxUnavailable: 1
+    metrics:
+      enabled: true
+      metricsPort: 9236
+    persistence:
+      accessMode: ReadWriteOnce
+      enabled: true
+      matchExpressions: []
+      matchLabels: {}
+      size: 50Gi
+      subPath: ""
+    redis: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    service:
+      externalPort: 8075
+      internalPort: 8075
+      name: gitaly
+      type: ClusterIP
+    serviceName: gitaly
+    shell:
+      authToken: {}
+    unicorn: {}
+  gitlab-runner:
+    enabled: false
+  gitlab-shell:
+    enabled: true
+    global:
+      antiAffinity: soft
+      application:
+        create: true
+      email:
+        display_name: GitLab
+        from: ""
+        reply_to: ""
+        subject_suffix: ""
+      gitaly:
+        authToken: {}
+      hosts:
+        domain: infoplus
+        externalIP: 127.0.0.1
+        gitlab: {}
+        hostSuffix: null
+        https: false
+        minio: {}
+        registry: {}
+        tls: {}
+      ingress:
+        annotations: {}
+        configureCertmanager: true
+        enabled: true
+        tls: {}
+      initialRootPassword: {}
+      minio:
+        credentials: {}
+        enabled: true
+      psql:
+        password: {}
+      railsSecrets: {}
+      redis:
+        password: {}
+      registry:
+        certificate: {}
+      runner:
+        registrationToken: {}
+      service:
+        annotations: {}
+      shell:
+        authToken: {}
+        hostKeys: {}
+      smtp:
+        address: smtp.mailgun.org
+        authentication: plain
+        enabled: false
+        openssl_verify_mode: peer
+        password:
+          key: password
+          secret: ""
+        port: 2525
+        starttls_auto: false
+        user_name: ""
+      time_zone: UTC
+    image:
+      pullSecrets: []
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-shell
+    init:
+      image: busybox
+      resources:
+        requests:
+          cpu: 50m
+      tag: latest
+    maxReplicas: 10
+    maxUnavailable: 1
+    minReplicas: 2
+    redis:
+      password: {}
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+    service:
+      externalPort: 22
+      internalPort: 2222
+      name: gitlab-shell
+      type: ClusterIP
+    unicorn:
+      serviceName: unicorn
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  migrations:
+    enabled: true
+    global:
+      antiAffinity: soft
+      application:
+        create: true
+      email:
+        display_name: GitLab
+        from: ""
+        reply_to: ""
+        subject_suffix: ""
+      gitaly:
+        authToken: {}
+      hosts:
+        domain: infoplus
+        externalIP: 127.0.0.1
+        gitlab: {}
+        hostSuffix: null
+        https: false
+        minio: {}
+        registry: {}
+        tls: {}
+      ingress:
+        annotations: {}
+        configureCertmanager: true
+        enabled: true
+        tls: {}
+      initialRootPassword: {}
+      minio:
+        credentials: {}
+        enabled: true
+      psql:
+        password: {}
+      railsSecrets: {}
+      redis:
+        password: {}
+      registry:
+        certificate: {}
+      runner:
+        registrationToken: {}
+      service:
+        annotations: {}
+      shell:
+        authToken: {}
+        hostKeys: {}
+      smtp:
+        address: smtp.mailgun.org
+        authentication: plain
+        enabled: false
+        openssl_verify_mode: peer
+        password:
+          key: password
+          secret: ""
+        port: 2525
+        starttls_auto: false
+        user_name: ""
+      time_zone: UTC
+    image:
+      pullSecrets: []
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-rails-ee
+    init:
+      image: busybox
+      tag: latest
+    initialRootPassword: {}
+    redis:
+      password: {}
+    resources: {}
+  sidekiq:
+    artifacts:
+      bucket: gitlab-artifacts
+      enabled: true
+      proxy_download: true
+    concurrency: 10
+    cron_jobs: {}
+    enabled: true
+    extra: {}
+    gitaly:
+      authToken: {}
+    global:
+      antiAffinity: soft
+      application:
+        create: true
+      email:
+        display_name: GitLab
+        from: ""
+        reply_to: ""
+        subject_suffix: ""
+      gitaly:
+        authToken: {}
+      hosts:
+        domain: infoplus
+        externalIP: 127.0.0.1
+        gitlab: {}
+        hostSuffix: null
+        https: false
+        minio: {}
+        registry: {}
+        tls: {}
+      ingress:
+        annotations: {}
+        configureCertmanager: true
+        enabled: true
+        tls: {}
+      initialRootPassword: {}
+      minio:
+        credentials: {}
+        enabled: true
+      psql:
+        password: {}
+      railsSecrets: {}
+      redis:
+        password: {}
+      registry:
+        certificate: {}
+      runner:
+        registrationToken: {}
+      service:
+        annotations: {}
+      shell:
+        authToken: {}
+        hostKeys: {}
+      smtp:
+        address: smtp.mailgun.org
+        authentication: plain
+        enabled: false
+        openssl_verify_mode: peer
+        password:
+          key: password
+          secret: ""
+        port: 2525
+        starttls_auto: false
+        user_name: ""
+      time_zone: UTC
+    image:
+      pullSecrets: []
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-sidekiq-ee
+    init:
+      image: busybox
+      resources:
+        requests:
+          cpu: 50m
+      tag: latest
+    lfs:
+      bucket: git-lfs
+      enabled: true
+      proxy_download: true
+    maxReplicas: 10
+    maxUnavailable: 1
+    metrics:
+      annotations:
+        prometheus.io/port: "3807"
+        prometheus.io/scrape: "true"
+      enabled: true
+      port: 3807
+    minReplicas: 1
+    minio:
+      credentials:
+        secret: gitlab-minio
+      enabled: true
+      port: 9000
+      serviceName: minio-svc
+    pods:
+    - concurrency: 10
+      name: all-in-1
+      queues:
+      - - post_receive
+        - 5
+      - - merge
+        - 5
+      - - update_merge_requests
+        - 3
+      - - process_commit
+        - 3
+      - - new_note
+        - 2
+      - - new_issue
+        - 2
+      - - new_merge_request
+        - 2
+      - - pipeline_processing
+        - 5
+      - - pipeline_creation
+        - 4
+      - - pipeline_default
+        - 3
+      - - pipeline_cache
+        - 3
+      - - pipeline_hooks
+        - 2
+      - - gitlab_shell
+        - 2
+      - - email_receiver
+        - 2
+      - - emails_on_push
+        - 2
+      - - mailers
+        - 2
+      - - invalid_gpg_signature_update
+        - 2
+      - - create_gpg_signature
+        - 2
+      - - rebase
+        - 2
+      - - upload_checksum
+        - 1
+      - - repository_fork
+        - 1
+      - - repository_import
+        - 1
+      - - github_importer
+        - 1
+      - - github_import_advance_stage
+        - 1
+      - - project_service
+        - 1
+      - - delete_user
+        - 1
+      - - delete_merged_branches
+        - 1
+      - - authorized_projects
+        - 1
+      - - expire_build_instance_artifacts
+        - 1
+      - - group_destroy
+        - 1
+      - - irker
+        - 1
+      - - namespaceless_project_destroy
+        - 1
+      - - project_cache
+        - 1
+      - - project_destroy
+        - 1
+      - - project_export
+        - 1
+      - - web_hook
+        - 1
+      - - repository_check
+        - 1
+      - - git_garbage_collect
+        - 1
+      - - reactive_caching
+        - 1
+      - - cronjob
+        - 1
+      - - default
+        - 1
+      - - pages
+        - 1
+      - - system_hook_push
+        - 1
+      - - update_user_activity
+        - 1
+      - - propagate_service_template
+        - 1
+      - - background_migration
+        - 1
+      - - gcp_cluster
+        - 1
+      - - project_migrate_hashed_storage
+        - 1
+      - - storage_migrator
+        - 1
+      - - pages_domain_verification
+        - 1
+      - - object_storage_upload
+        - 1
+      - - object_storage
+        - 1
+      - - plugin
+        - 1
+      - - pipeline_background
+        - 1
+    rack_attack:
+      git_basic_auth:
+        enabled: false
+    redis:
+      password: {}
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+    timeout: 5
+    trusted_proxies: []
+    uploads:
+      bucket: gitlab-uploads
+      enabled: true
+      proxy_download: true
+  task-runner:
+    backups:
+      bucketNames:
+        artifacts: gitlab-artifacts
+        backups: gitlab-backups
+        lfs: git-lfs
+        registry: registry
+        uploads: gitlab-uploads
+    enabled: true
+    extra: {}
+    gitaly:
+      authToken: {}
+    global:
+      antiAffinity: soft
+      application:
+        create: true
+      email:
+        display_name: GitLab
+        from: ""
+        reply_to: ""
+        subject_suffix: ""
+      gitaly:
+        authToken: {}
+      hosts:
+        domain: infoplus
+        externalIP: 127.0.0.1
+        gitlab: {}
+        hostSuffix: null
+        https: false
+        minio: {}
+        registry: {}
+        tls: {}
+      ingress:
+        annotations: {}
+        configureCertmanager: true
+        enabled: true
+        tls: {}
+      initialRootPassword: {}
+      minio:
+        credentials: {}
+        enabled: true
+      psql:
+        password: {}
+      railsSecrets: {}
+      redis:
+        password: {}
+      registry:
+        certificate: {}
+      runner:
+        registrationToken: {}
+      service:
+        annotations: {}
+      shell:
+        authToken: {}
+        hostKeys: {}
+      smtp:
+        address: smtp.mailgun.org
+        authentication: plain
+        enabled: false
+        openssl_verify_mode: peer
+        password:
+          key: password
+          secret: ""
+        port: 2525
+        starttls_auto: false
+        user_name: ""
+      time_zone: UTC
+    image:
+      pullSecrets: []
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-task-runner-ee
+    init:
+      image: busybox
+      resources:
+        requests:
+          cpu: 50m
+      tag: latest
+    lfs:
+      enabled: true
+      proxy_download: true
+    minio:
+      bucket: git-lfs
+      enabled: true
+      port: 9000
+      serviceName: minio-svc
+    psql:
+      password: {}
+    rack_attack:
+      git_basic_auth:
+        enabled: false
+    redis:
+      password: {}
+    registry:
+      api:
+        port: 5000
+        protocol: http
+        serviceName: registry
+      host: null
+      tokenIssuer: gitlab-issuer
+    resources:
+      requests:
+        cpu: 50m
+        memory: 350M
+    trusted_proxies: []
+  unicorn:
+    artifacts:
+      bucket: gitlab-artifacts
+      enabled: true
+      proxy_download: true
+    enabled: true
+    extra: {}
+    gitaly:
+      authToken: {}
+    global:
+      antiAffinity: soft
+      application:
+        create: true
+      email:
+        display_name: GitLab
+        from: ""
+        reply_to: ""
+        subject_suffix: ""
+      gitaly:
+        authToken: {}
+      hosts:
+        domain: infoplus
+        externalIP: 127.0.0.1
+        gitlab: {}
+        hostSuffix: null
+        https: false
+        minio: {}
+        registry: {}
+        tls: {}
+      ingress:
+        annotations: {}
+        configureCertmanager: true
+        enabled: true
+        tls: {}
+      initialRootPassword: {}
+      minio:
+        credentials: {}
+        enabled: true
+      psql:
+        password: {}
+      railsSecrets: {}
+      redis:
+        password: {}
+      registry:
+        certificate: {}
+      runner:
+        registrationToken: {}
+      service:
+        annotations: {}
+      shell:
+        authToken: {}
+        hostKeys: {}
+      smtp:
+        address: smtp.mailgun.org
+        authentication: plain
+        enabled: false
+        openssl_verify_mode: peer
+        password:
+          key: password
+          secret: ""
+        port: 2525
+        starttls_auto: false
+        user_name: ""
+      time_zone: UTC
+    image:
+      pullSecrets: []
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-unicorn-ee
+    ingress:
+      annotations: {}
+      enabled: true
+      proxyBodySize: 512m
+      proxyConnectTimeout: 15
+      proxyReadTimeout: 600
+      tls: {}
+    init:
+      image: busybox
+      resources:
+        requests:
+          cpu: 50m
+      tag: latest
+    ldap:
+      servers: {}
+    lfs:
+      bucket: git-lfs
+      enabled: true
+      proxy_download: true
+    maxReplicas: 10
+    maxUnavailable: 1
+    metrics:
+      annotations:
+        prometheus.io/path: /-/metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      enabled: true
+    minReplicas: 2
+    minio:
+      enabled: true
+      port: 9000
+      serviceName: minio-svc
+    omniauth:
+      allowSingleSignOn:
+      - saml
+      autoLinkLdapUser: false
+      autoLinkSamlUser: false
+      autoSignInWithProvider: null
+      blockAutoCreatedUsers: true
+      enabled: false
+      externalProviders: []
+      providers: []
+      syncProfileAttributes:
+      - email
+      syncProfileFromProvider: []
+    rack_attack:
+      git_basic_auth:
+        enabled: false
+    redis:
+      password: {}
+    registry:
+      api:
+        port: 5000
+        protocol: http
+        serviceName: registry
+      host: null
+      tokenIssuer: gitlab-issuer
+    resources:
+      requests:
+        cpu: 200m
+        memory: 1G
+    service:
+      externalPort: 8080
+      internalPort: 8080
+      name: unicorn
+      type: ClusterIP
+      workhorseExternalPort: 8181
+      workhorseInternalPort: 8181
+    trusted_proxies: []
+    uploads:
+      bucket: gitlab-uploads
+      enabled: true
+      proxy_download: true
+    workerProcesses: 2
+    workerTimeout: 60
+    workhorse:
+      extraArgs: ""
+      sentryDSN: ""
+gitlab-runner:
+  checkInterval: 30
+  concurrent: 10
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image: gitlab/gitlab-runner:alpine-v10.3.0
+  imagePullPolicy: IfNotPresent
+  init:
+    image: busybox
+    tag: latest
+  install: true
+  metrics:
+    enabled: true
+  rbac:
+    clusterWideAccess: false
+    create: true
+  resources: {}
+  runners:
+    builds: {}
+    cache:
+      cacheShared: true
+      cacheType: s3
+      s3BucketLocation: us-east-1
+      s3BucketName: runner-cache
+      s3CacheInsecure: false
+      s3CachePath: gitlab-runner
+    helpers: {}
+    image: ubuntu:16.04
+    privileged: false
+    services: {}
+  unregisterRunners: true
+global:
+  antiAffinity: soft
+  application:
+    create: true
+  email:
+    display_name: GitLab
+    from: ""
+    reply_to: ""
+    subject_suffix: ""
+  gitaly:
+    authToken: {}
+  hosts:
+    domain: infoplus
+    externalIP: 127.0.0.1
+    gitlab: {}
+    hostSuffix: null
+    https: false
+    minio: {}
+    registry: {}
+    tls: {}
+  ingress:
+    annotations: {}
+    configureCertmanager: true
+    enabled: true
+    tls: {}
+  initialRootPassword: {}
+  minio:
+    credentials: {}
+    enabled: true
+  psql:
+    password: {}
+  railsSecrets: {}
+  redis:
+    password: {}
+  registry:
+    certificate: {}
+  runner:
+    registrationToken: {}
+  service:
+    annotations: {}
+  shell:
+    authToken: {}
+    hostKeys: {}
+  smtp:
+    address: smtp.mailgun.org
+    authentication: plain
+    enabled: false
+    openssl_verify_mode: peer
+    password:
+      key: password
+      secret: ""
+    port: 2525
+    starttls_auto: false
+    user_name: ""
+  time_zone: UTC
+minio:
+  configPath: ""
+  defaultBuckets:
+  - name: registry
+  - name: git-lfs
+  - name: runner-cache
+  - name: gitlab-uploads
+  - name: gitlab-artifacts
+  - name: gitlab-backups
+  - name: tmp
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image: minio/minio
+  imagePullPolicy: Always
+  imageTag: RELEASE.2017-12-28T01-21-00Z
+  ingress:
+    annotations: {}
+    enabled: false
+    proxyBodySize: "0"
+    proxyBuffering: "off"
+    proxyReadTimeout: 900
+    tls: {}
+  init:
+    image: busybox
+    pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 50m
+    script: sed -e 's@ACCESS_KEY@'"$(cat /config/accesskey)"'@' -e 's@SECRET_KEY@'"$(cat
+      /config/secretkey)"'@' /config/config.json > /minio/config.json
+    tag: latest
+  maxUnavailable: 1
+  minioConfig:
+    aqmp:
+      autoDeleted: false
+      deliveryMode: 0
+      durable: false
+      enable: false
+      exchange: ""
+      exchangeType: ""
+      immediate: false
+      internal: false
+      mandatory: false
+      noWait: false
+      routingKey: ""
+      url: ""
+    browser: "on"
+    domain: ""
+    elasticsearch:
+      enable: false
+      format: namespace
+      index: ""
+      url: ""
+    kafka:
+      brokers: "null"
+      enable: false
+      topic: ""
+    logger:
+      console:
+        enable: true
+      file:
+        enable: false
+        filename: ""
+    mqtt:
+      broker: ""
+      clientId: ""
+      enable: false
+      password: ""
+      qos: 0
+      topic: ""
+      username: ""
+    mysql:
+      database: ""
+      dsnString: ""
+      enable: false
+      format: namespace
+      host: ""
+      password: ""
+      port: ""
+      table: ""
+      user: ""
+    nats:
+      address: ""
+      async: false
+      clientID: ""
+      clusterID: ""
+      enable: false
+      enableStreaming: false
+      maxPubAcksInflight: 0
+      password: ""
+      pingInterval: 0
+      secure: false
+      subject: ""
+      token: ""
+      username: ""
+    postgresql:
+      connectionString: ""
+      database: ""
+      enable: false
+      format: namespace
+      host: ""
+      password: ""
+      port: ""
+      table: ""
+      user: ""
+    redis:
+      address: ""
+      enable: false
+      format: namespace
+      key: ""
+      password: ""
+    region: us-east-1
+    webhook:
+      enable: false
+      endpoint: ""
+  minioMc:
+    image: minio/mc
+    tag: RELEASE.2018-07-13T00-53-22Z
+  mountPath: /export
+  networkPolicy:
+    allowExternal: true
+    enabled: false
+  nodeSelector: {}
+  persistence:
+    accessMode: ReadWriteOnce
+    enabled: true
+    matchExpressions: []
+    matchLabels: {}
+    size: 10Gi
+    subPath: ""
+  pullSecrets: []
+  replicas: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  servicePort: 9000
+  serviceType: ClusterIP
+nginx-ingress:
+  controller:
+    affinity: {}
+    autoscaling:
+      enabled: false
+    config:
+      enable-vts-status: "true"
+      hsts-include-subdomains: "false"
+      server-name-hash-bucket-size: "256"
+      server-tokens: "false"
+      ssl-ciphers: ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4
+      ssl-protocols: TLSv1.1 TLSv1.2
+      use-http2: "false"
+    customTemplate:
+      configMapKey: ""
+      configMapName: ""
+    daemonset:
+      useHostPort: false
+    defaultBackendService: ""
+    dnsPolicy: ClusterFirst
+    electionID: ingress-controller-leader
+    extraArgs:
+      force-namespace-isolation: ""
+    extraContainers: {}
+    extraEnvs: []
+    extraVolumeMounts: {}
+    extraVolumes: {}
+    headers: {}
+    hostNetwork: false
+    image:
+      pullPolicy: IfNotPresent
+      repository: quay.io/kubernetes-ingress-controller/nginx-ingress-controller
+      tag: 0.14.0
+    ingressClass: nginx
+    kind: Deployment
+    lifecycle: {}
+    livenessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      port: 10254
+      successThreshold: 1
+      timeoutSeconds: 1
+    metrics:
+      enabled: false
+      service:
+        annotations: {}
+        clusterIP: ""
+        externalIPs: []
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        servicePort: 9913
+        type: ClusterIP
+    minAvailable: 2
+    minReadySeconds: 0
+    name: controller
+    nodeSelector: {}
+    podAnnotations: {}
+    podLabels: {}
+    publishService:
+      enabled: true
+      pathOverride: ""
+    readinessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      port: 10254
+      successThreshold: 1
+      timeoutSeconds: 1
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    scope:
+      enabled: true
+      namespace: ""
+    service:
+      annotations: {}
+      clusterIP: ""
+      externalIPs: []
+      externalTrafficPolicy: Local
+      healthCheckNodePort: 0
+      labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      nodePorts:
+        http: ""
+        https: ""
+      targetPorts:
+        http: http
+        https: https
+      type: LoadBalancer
+    stats:
+      enabled: false
+      service:
+        annotations: {}
+        clusterIP: ""
+        externalIPs: []
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        servicePort: 18080
+        type: ClusterIP
+    tolerations: []
+    updateStrategy: {}
+  defaultBackend:
+    affinity: {}
+    enabled: true
+    extraArgs: {}
+    image:
+      pullPolicy: IfNotPresent
+      repository: k8s.gcr.io/defaultbackend
+      tag: "1.3"
+    minAvailable: 1
+    name: default-backend
+    nodeSelector: {}
+    podAnnotations: {}
+    podLabels: {}
+    replicaCount: 1
+    resources: {}
+    service:
+      annotations: {}
+      clusterIP: ""
+      externalIPs: []
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 80
+      type: ClusterIP
+    tolerations: []
+  enabled: true
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  imagePullSecrets: []
+  rbac:
+    create: false
+    createClusterRole: false
+    createRole: true
+    serviceAccountName: default
+  revisionHistoryLimit: 10
+  tcp:
+    "22": enabled
+  tcpExternalConfig: "true"
+  udp: {}
+postgresql:
+  affinity: {}
+  existingSecret: secret
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image: postgres
+  imageTag: 9.6.8
+  install: true
+  metrics:
+    enabled: true
+    image: wrouesnel/postgres_exporter
+    imagePullPolicy: IfNotPresent
+    imageTag: v0.1.1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  networkPolicy:
+    allowExternal: true
+    enabled: false
+  nodeSelector: {}
+  persistence:
+    accessMode: ReadWriteOnce
+    enabled: true
+    mountPath: /var/lib/postgresql/data/pgdata
+    size: 8Gi
+    subPath: postgresql-db
+  postgresDatabase: gitlabhq_production
+  postgresUser: gitlab
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  service:
+    externalIPs: []
+    port: 5432
+    type: ClusterIP
+  tolerations: []
+  usePasswordFile: true
+prometheus:
+  alertmanager:
+    baseURL: /
+    configMapOverrideName: ""
+    enabled: false
+    extraArgs: {}
+    extraEnv: {}
+    image:
+      pullPolicy: IfNotPresent
+      repository: prom/alertmanager
+      tag: v0.14.0
+    ingress:
+      annotations: {}
+      enabled: false
+      hosts: []
+      tls: []
+    name: alertmanager
+    nodeSelector: {}
+    persistentVolume:
+      accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      enabled: true
+      existingClaim: ""
+      mountPath: /data
+      size: 2Gi
+      subPath: ""
+    podAnnotations: {}
+    prefixURL: ""
+    replicaCount: 1
+    resources: {}
+    service:
+      annotations: {}
+      clusterIP: ""
+      externalIPs: []
+      labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 80
+      type: ClusterIP
+    serviceAccountName: default
+    tolerations: []
+  alertmanagerFiles:
+    alertmanager.yml:
+      global: null
+      receivers:
+      - name: default-receiver
+      route:
+        group_interval: 5m
+        group_wait: 10s
+        receiver: default-receiver
+        repeat_interval: 3h
+  configmapReload:
+    image:
+      pullPolicy: IfNotPresent
+      repository: jimmidyson/configmap-reload
+      tag: v0.1
+    name: configmap-reload
+    resources: {}
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  initChownData:
+    enabled: true
+    image:
+      pullPolicy: IfNotPresent
+      repository: busybox
+      tag: latest
+    name: init-chown-data
+    resources: {}
+  install: true
+  kubeStateMetrics:
+    args: {}
+    enabled: false
+    image:
+      pullPolicy: IfNotPresent
+      repository: k8s.gcr.io/kube-state-metrics
+      tag: v1.2.0
+    name: kube-state-metrics
+    nodeSelector: {}
+    podAnnotations: {}
+    replicaCount: 1
+    resources: {}
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+      clusterIP: None
+      externalIPs: []
+      labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 80
+      type: ClusterIP
+    serviceAccountName: default
+    tolerations: []
+  networkPolicy:
+    enabled: false
+  nodeExporter:
+    enabled: false
+    extraArgs: {}
+    extraConfigmapMounts: []
+    extraHostPathMounts: []
+    image:
+      pullPolicy: IfNotPresent
+      repository: prom/node-exporter
+      tag: v0.15.2
+    name: node-exporter
+    nodeSelector: {}
+    podAnnotations: {}
+    resources: {}
+    securityContext: {}
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+      clusterIP: None
+      externalIPs: []
+      hostPort: 9100
+      labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 9100
+      type: ClusterIP
+    serviceAccountName: default
+    tolerations: []
+    updateStrategy:
+      type: OnDelete
+  pushgateway:
+    enabled: false
+    extraArgs: {}
+    image:
+      pullPolicy: IfNotPresent
+      repository: prom/pushgateway
+      tag: v0.4.0
+    ingress:
+      annotations: {}
+      enabled: false
+      hosts: []
+      tls: []
+    name: pushgateway
+    nodeSelector: {}
+    podAnnotations: {}
+    replicaCount: 1
+    resources: {}
+    service:
+      annotations:
+        prometheus.io/probe: pushgateway
+      clusterIP: ""
+      externalIPs: []
+      labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 9091
+      type: ClusterIP
+    tolerations: []
+  rbac:
+    create: true
+  server:
+    baseURL: ""
+    configMapOverrideName: ""
+    extraArgs: {}
+    extraConfigmapMounts: []
+    extraHostPathMounts: []
+    extraSecretMounts: []
+    image:
+      pullPolicy: IfNotPresent
+      repository: prom/prometheus
+      tag: v2.2.1
+    ingress:
+      annotations: {}
+      enabled: false
+      hosts: []
+      tls: []
+    name: server
+    nodeSelector: {}
+    persistentVolume:
+      accessModes:
+      - ReadWriteOnce
+      annotations: {}
+      enabled: true
+      existingClaim: ""
+      mountPath: /data
+      size: 8Gi
+      subPath: ""
+    podAnnotations: {}
+    prefixURL: ""
+    replicaCount: 1
+    resources: {}
+    retention: ""
+    service:
+      annotations: {}
+      clusterIP: ""
+      externalIPs: []
+      labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      servicePort: 80
+      type: ClusterIP
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 300
+    tolerations: []
+  serverFiles:
+    alerts: {}
+    prometheus.yml:
+      rule_files:
+      - /etc/config/rules
+      - /etc/config/alerts
+      scrape_configs:
+      - job_name: prometheus
+        static_configs:
+        - targets:
+          - localhost:9090
+      - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        job_name: kubernetes-apiservers
+        kubernetes_sd_configs:
+        - role: endpoints
+        relabel_configs:
+        - action: keep
+          regex: default;kubernetes;https
+          source_labels:
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_service_name
+          - __meta_kubernetes_endpoint_port_name
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecure_skip_verify: true
+      - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        job_name: kubernetes-nodes
+        kubernetes_sd_configs:
+        - role: node
+        relabel_configs:
+        - action: labelmap
+          regex: __meta_kubernetes_node_label_(.+)
+        - replacement: kubernetes.default.svc:443
+          target_label: __address__
+        - regex: (.+)
+          replacement: /api/v1/nodes/${1}/proxy/metrics
+          source_labels:
+          - __meta_kubernetes_node_name
+          target_label: __metrics_path__
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecure_skip_verify: true
+      - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        job_name: kubernetes-nodes-cadvisor
+        kubernetes_sd_configs:
+        - role: node
+        relabel_configs:
+        - action: labelmap
+          regex: __meta_kubernetes_node_label_(.+)
+        - replacement: kubernetes.default.svc:443
+          target_label: __address__
+        - regex: (.+)
+          replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
+          source_labels:
+          - __meta_kubernetes_node_name
+          target_label: __metrics_path__
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecure_skip_verify: true
+      - job_name: kubernetes-service-endpoints
+        kubernetes_sd_configs:
+        - role: endpoints
+        relabel_configs:
+        - action: keep
+          regex: true
+          source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scrape
+        - action: replace
+          regex: (https?)
+          source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scheme
+          target_label: __scheme__
+        - action: replace
+          regex: (.+)
+          source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_path
+          target_label: __metrics_path__
+        - action: replace
+          regex: ([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+          source_labels:
+          - __address__
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+          target_label: __address__
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+        - action: replace
+          source_labels:
+          - __meta_kubernetes_namespace
+          target_label: kubernetes_namespace
+        - action: replace
+          source_labels:
+          - __meta_kubernetes_service_name
+          target_label: kubernetes_name
+      - honor_labels: true
+        job_name: prometheus-pushgateway
+        kubernetes_sd_configs:
+        - role: service
+        relabel_configs:
+        - action: keep
+          regex: pushgateway
+          source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_probe
+      - job_name: kubernetes-services
+        kubernetes_sd_configs:
+        - role: service
+        metrics_path: /probe
+        params:
+          module:
+          - http_2xx
+        relabel_configs:
+        - action: keep
+          regex: true
+          source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_probe
+        - source_labels:
+          - __address__
+          target_label: __param_target
+        - replacement: blackbox
+          target_label: __address__
+        - source_labels:
+          - __param_target
+          target_label: instance
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+        - source_labels:
+          - __meta_kubernetes_namespace
+          target_label: kubernetes_namespace
+        - source_labels:
+          - __meta_kubernetes_service_name
+          target_label: kubernetes_name
+      - job_name: kubernetes-pods
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - action: keep
+          regex: true
+          source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+        - action: replace
+          regex: (.+)
+          source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_path
+          target_label: __metrics_path__
+        - action: replace
+          regex: ([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+          source_labels:
+          - __address__
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
+          target_label: __address__
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+        - action: replace
+          source_labels:
+          - __meta_kubernetes_namespace
+          target_label: kubernetes_namespace
+        - action: replace
+          source_labels:
+          - __meta_kubernetes_pod_name
+          target_label: kubernetes_pod_name
+    rules: {}
+redis:
+  enabled: true
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: redis
+    tag: 3.2.6
+  init:
+    image: busybox
+    resources:
+      requests:
+        cpu: 50m
+    tag: latest
+  loglevel: notice
+  maxUnavailable: 1
+  metrics:
+    annotations:
+      prometheus.io/port: "9121"
+      prometheus.io/scrape: "true"
+    enabled: true
+    image: oliver006/redis_exporter
+    imagePullPolicy: IfNotPresent
+    imageTag: latest
+    port: 9121
+    resources: {}
+  persistence:
+    accessMode: ReadWriteOnce
+    enabled: true
+    matchExpressions: []
+    matchLabels: {}
+    save:
+    - time: 60
+      writes: 1000
+    - time: 300
+      writes: 10
+    - time: 900
+      writes: 1
+    size: 5Gi
+    subPath: ""
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  securityContext:
+    allowPrivilegeEscalation: false
+    fsGroup: 999
+    runAsUser: 999
+  service:
+    clusterIP: 127.0.0.1
+    externalPort: 6379
+    internalPort: 6379
+    name: redis
+    type: ClusterIP
+  tcpKeepalive: 300
+  timeout: 60
+redis-ha:
+  enabled: false
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 0.0.0.0
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image:
+    pullPolicy: Always
+    pullSecrets: []
+    repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-redis-ha
+    tag: 732704f18e34ba469df34b10c3b2465e0469d484
+  init:
+    image: busybox
+    resources:
+      requests:
+        cpu: 50m
+    tag: latest
+  loglevel: notice
+  maxUnavailable: 1
+  metrics:
+    annotations:
+      prometheus.io/port: "9121"
+      prometheus.io/scrape: "true"
+    enabled: true
+    image: oliver006/redis_exporter
+    imagePullPolicy: IfNotPresent
+    imageTag: latest
+    port: 9121
+    resources: {}
+  nameOverride: redis
+  nodeSelector: {}
+  persistence:
+    save:
+    - time: 60
+      writes: 1000
+    - time: 300
+      writes: 10
+    - time: 900
+      writes: 1
+  persistentVolume:
+    accessModes:
+    - ReadWriteOnce
+    annotations: {}
+    enabled: true
+    existingClaim: ""
+    mountPath: /data
+    size: 8Gi
+    subPath: ""
+  rbac:
+    create: true
+  replicas:
+    sentinels: 1
+    servers: 1
+  resources:
+    sentinel:
+      limits:
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    server:
+      requests:
+        cpu: 100m
+        memory: 200Mi
+  servers:
+    annotations: {}
+    clusterIP: 0.0.0.0
+    externalPort: 6379
+    internalPort: 6379
+    serviceType: ClusterIP
+  serviceAccount:
+    create: true
+  tcpKeepalive: 300
+  timeout: 60
+  tolerations: []
+registry:
+  enabled: true
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  httpSecret: ""
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    repository: registry
+    tag: 2.6.2
+  ingress:
+    annotations: {}
+    enabled: true
+    proxyBodySize: "0"
+    proxyBuffering: "off"
+    proxyReadTimeout: 900
+    tls: {}
+  init:
+    image: busybox
+    pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 50m
+    script: |-
+      if [ -e /config/accesskey ] ; then
+        sed -e 's@ACCESS_KEY@'"$(cat /config/accesskey)"'@' -e 's@SECRET_KEY@'"$(cat /config/secretkey)"'@' /config/config.yml > /registry/config.yml
+      else
+        cp /config/config.yml  /registry/config.yml
+      fi
+      # Set to known path, to used ConfigMap
+      cat /config/certificate.crt > /registry/certificate.crt
+    tag: latest
+  maxUnavailable: 1
+  minio:
+    bucket: registry
+    enabled: true
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  service:
+    clusterIP: 0.0.0.0
+    externalPort: 5000
+    internalPort: 5000
+    name: registry
+    type: ClusterIP
+  storage: {}
+  tokenIssuer: gitlab-issuer
+  tokenService: container_registry
+shared-secrets:
+  env: production
+  global:
+    antiAffinity: soft
+    application:
+      create: true
+    email:
+      display_name: GitLab
+      from: ""
+      reply_to: ""
+      subject_suffix: ""
+    gitaly:
+      authToken: {}
+    hosts:
+      domain: infoplus
+      externalIP: 127.0.0.1
+      gitlab: {}
+      hostSuffix: null
+      https: false
+      minio: {}
+      registry: {}
+      tls: {}
+    ingress:
+      annotations: {}
+      configureCertmanager: true
+      enabled: true
+      tls: {}
+    initialRootPassword: {}
+    minio:
+      credentials: {}
+      enabled: true
+    psql:
+      password: {}
+    railsSecrets: {}
+    redis:
+      password: {}
+    registry:
+      certificate: {}
+    runner:
+      registrationToken: {}
+    service:
+      annotations: {}
+    shell:
+      authToken: {}
+      hostKeys: {}
+    smtp:
+      address: smtp.mailgun.org
+      authentication: plain
+      enabled: false
+      openssl_verify_mode: peer
+      password:
+        key: password
+        secret: ""
+      port: 2525
+      starttls_auto: false
+      user_name: ""
+    time_zone: UTC
+  image:
+    pullSecrets: []
+    repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+    tag: 1f8690f03f7aeef27e727396927ab3cc96ac89e7
+  resources: {}
+  selfsign:
+    image:
+      repository: paulczar/omgwtfssl@sha256
+      tag: 7fd1f81d740ffc0f87a17cfe4a99a26f9796f682b0cc905820e75ccb6414bcf9
+
