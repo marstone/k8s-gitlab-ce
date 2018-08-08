@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-ce-registry-svc
+spec:
+  type: LoadBalancer
+  selector:
+    name: gitlab-ce
+  ports:
+  - port: 5050
+    targetPort: 5050
