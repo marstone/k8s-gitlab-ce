@@ -7,5 +7,6 @@ spec:
   selector:
     name: gitlab-ce
   ports:
-  - port: 5050
+  - name: registry
+    port: 5050
     targetPort: 5050

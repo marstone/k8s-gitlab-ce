@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-runner-cm
+data:
+  config.toml: |
+    concurrent = 2
+
+    [[runners]]
+      name = "Kubernetes Runner macOS"
+      url = "http://gitlab-ce-svc"
+      token = "ojTvdhtpW8x56ikdrCG4"
+      executor = "kubernetes"
+      [runners.kubernetes]
+        image = "busybox"
+        hosti = "https://kubernetes"
+        ca_file = "/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+        privileged = true
+        image_pull_secrets = ["gitlab-ce-registry-json-key"]
+
