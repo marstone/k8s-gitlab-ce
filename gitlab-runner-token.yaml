@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitlab-runner-token
+#  namespace: YOUR_GITLAB_BUILD_NAMESPACE
+  labels:
+    app: gitlab-runner
+data:
+  # BASE64_ENCODED_TOKEN, created by: echo "ojTvdhtpW8x56ikdrCG4" | base64 -w0
+  GITLAB_CI_TOKEN: b2pUdmRodHBXOHg1NmlrZHJDRzQK

@@ -6,18 +6,18 @@ metadata:
 spec:
   ports:
   - name: gitlab-ce-22
-    port: 22
     protocol: TCP
-    targetPort: 22
-    nodePort: 32122
+    port: 32122     # svc
+    targetPort: 22  # pod
+    nodePort: 32122 # node
   - name: gitlab-ce-80
-    port: 80
     protocol: TCP
-    targetPort: 80
+    port: 32180
+    targetPort: 32180
     nodePort: 32180
   - name: gitlab-ce-443
-    port: 443
     protocol: TCP
+    port: 32543
     targetPort: 443
     nodePort: 32543
   selector:

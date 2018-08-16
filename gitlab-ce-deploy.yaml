@@ -19,6 +19,7 @@ spec:
         - containerPort: 5000
         - containerPort: 5050
         - containerPort: 8080
+        - containerPort: 32180
         volumeMounts:
           - name: gitlab-conf
             mountPath: /etc/gitlab
